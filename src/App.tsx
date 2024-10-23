@@ -22,7 +22,7 @@ const App = () => {
   }
   return <>
     <div className="flex p-12 flex-wrap">
-      {users.length === 0 && <h1>Add User through form below !.</h1>}
+      {users.length === 0 && <h1>Add User through form below 👇</h1>}
       {users.map(user => {
         return <div className="border rounded p-6 m-2">
           <p>{user.name}</p>
