@@ -7,6 +7,7 @@ type User = {
     age: number;
     profession: string;
     password: string;
+    gender: string;
 }
 
 // Define the state and actions for the Zustand store

@@ -1,4 +1,4 @@
-import { useUserStore } from "./Stores/userStore"; 
+import { useUserStore } from "./Stores/userStore";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 type formFields = {
@@ -7,6 +7,7 @@ type formFields = {
   age: number;
   profession: string;
   password: string;
+  gender: string;
 }
 
 const App = () => {
@@ -30,6 +31,7 @@ const App = () => {
           <p>{user.password}</p>
           <p>{user.age}</p>
           <p>{user.profession}</p>
+          <p>{user.gender}</p>
         </div>
       })}
     </div>
@@ -44,7 +46,7 @@ const App = () => {
             }
           }
         })} type="text" placeholder="username" />
-        {errors.name && <div className="px-2 absolute left-2 top-[-8px] bg-white text-[11px] text-red-700 font-semibold">{errors.name.message}</div>}
+        {errors.name && <div className="px-2 absolute left-2 top-[-8px] bg-white text-[12px] text-red-700 font-semibold">{errors.name.message}</div>}
       </div>
       <div className="relative w-full">
         <input className="bg-transparent border outline-none w-full rounded h-9 px-4" {...register("password", {
@@ -55,7 +57,7 @@ const App = () => {
             }
           }
         })} type="text" placeholder="Password" />
-        {errors.password && <div className="px-2 absolute left-2 top-[-8px] bg-white text-[11px] text-red-700 font-semibold">{errors.password.message}</div>}
+        {errors.password && <div className="px-2 absolute left-2 top-[-8px] bg-white text-[12px] text-red-700 font-semibold">{errors.password.message}</div>}
       </div>
       <div className="relative w-full">
         <input className="bg-transparent outline-none border w-full rounded h-9 px-4" {...register("email", {
@@ -69,7 +71,7 @@ const App = () => {
             }
           }
         })} type="text" placeholder="email" />
-        {errors.email && <div className="px-2 absolute left-2 top-[-8px] bg-white text-[11px] text-red-700 font-semibold">{errors.email.message}</div>}
+        {errors.email && <div className="px-2 absolute left-2 top-[-8px] bg-white text-[12px] text-red-700 font-semibold">{errors.email.message}</div>}
       </div>
       <div className="relative w-full">
         <input className="bg-transparent outline-none border rounded w-full h-9 px-4" {...register("age", {
@@ -80,13 +82,25 @@ const App = () => {
             }
           }
         })} type="number" placeholder="age" />
-        {errors.age && <div className="px-2 absolute left-2 top-[-8px] bg-white text-[11px] text-red-700 font-semibold">{errors.age.message}</div>}
+        {errors.age && <div className="px-2 absolute left-2 top-[-8px] bg-white text-[12px] text-red-700 font-semibold">{errors.age.message}</div>}
+      </div>
+      <div className="relative w-full">
+        <select
+          className="bg-transparent outline-none border rounded w-full h-9 px-4"
+          {...register("gender", { required: 'Please select your gender' })}
+        >
+          <option value="">Select gender</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+        </select>
+        {errors.gender && <div className="px-2 absolute left-2 top-[-8px] bg-white text-[12px] text-red-700 font-semibold">{errors.gender.message}</div>}
       </div>
       <div className="relative w-full">
         <input className="bg-transparent border rounded outline-none w-full h-9 px-4" {...register("profession", {
           required: 'Profession Required'
         })} type="text" placeholder="profession" />
-        {errors.profession && <div className="px-2 absolute left-2 top-[-8px] bg-white text-[11px] text-red-700 font-semibold">{errors.profession.message}</div>}
+        {errors.profession && <div className="px-2 absolute left-2 top-[-8px] bg-white text-[12px] text-red-700 font-semibold">{errors.profession.message}</div>}
       </div>
       <button disabled={isSubmitting} className={`bg-black h-10 rounded text-white ${isSubmitting && 'bg-[#303030]'}`}>{isSubmitting ? "Submitting..." : "Submit"}</button>
     </form>
