@@ -35,7 +35,7 @@ const App = () => {
         </div>
       })}
     </div>
-    <form onSubmit={handleSubmit(onSubmit)} className="w-1/2 border border-[#cacaca] flex flex-col gap-4 p-4 rounded mx-auto mt-4">
+    <form onSubmit={handleSubmit(onSubmit)} className="w-1/2 border border-[#cacaca] flex flex-col gap-3 p-4 rounded mx-auto mt-4">
       <p>REACT hook form with zustand state management</p>
       <div className="relative w-full">
         <input className="bg-transparent border outline-none w-full rounded h-9 px-4" {...register("name", {
@@ -49,28 +49,54 @@ const App = () => {
         {errors.name && <div className="px-2 absolute left-2 top-[-8px] bg-white text-[12px] text-red-700 font-semibold">{errors.name.message}</div>}
       </div>
       <div className="relative w-full">
-        <input className="bg-transparent border outline-none w-full rounded h-9 px-4" {...register("password", {
-          required: 'Password Required',
-          validate: (val) => {
-            if (!(val.length > 7)) {
-              return 'Password atleast have 8 characters'
+        <input
+          className="bg-transparent border outline-none w-full rounded h-9 px-4"
+          {...register("password", {
+            required: 'Password is required',
+            validate: (val) => {
+              if (val.length < 8) {
+                return 'Password must be at least 8 characters long';
+              }
+              if (!/[A-Z]/.test(val)) {
+                return 'Password must include at least one uppercase letter';
+              }
+              if (!/[a-z]/.test(val)) {
+                return 'Password must include at least one lowercase letter';
+              }
+              if (!/[0-9]/.test(val)) {
+                return 'Password must include at least one number';
+              }
+              if (!/[^A-Za-z0-9]/.test(val)) {
+                return 'Password must include at least one special character';
+              }
             }
-          }
-        })} type="text" placeholder="Password" />
+          })}
+          type="password"
+          placeholder="Password"
+          aria-invalid={!!errors.password}
+        />
+
         {errors.password && <div className="px-2 absolute left-2 top-[-8px] bg-white text-[12px] text-red-700 font-semibold">{errors.password.message}</div>}
       </div>
       <div className="relative w-full">
-        <input className="bg-transparent outline-none border w-full rounded h-9 px-4" {...register("email", {
-          required: 'Email Required',
-          validate: (val) => {
-            if (!(val.length > 9)) {
-              return 'Invalid Email'
+        <input
+          className="bg-transparent outline-none border w-full rounded h-9 px-4"
+          {...register("email", {
+            required: 'Email is required',
+            validate: (val) => {
+              const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+              if (val.length <= 9) {
+                return 'Email Invalid';
+              }
+              if (!emailRegex.test(val)) {
+                return 'Invalid email format';
+              }
             }
-            if (!val.includes('@')) {
-              return 'Invalid Email'
-            }
-          }
-        })} type="text" placeholder="email" />
+          })}
+          type="text"
+          placeholder="Email"
+          aria-invalid={!!errors.email}
+        />
         {errors.email && <div className="px-2 absolute left-2 top-[-8px] bg-white text-[12px] text-red-700 font-semibold">{errors.email.message}</div>}
       </div>
       <div className="relative w-full">
@@ -78,8 +104,12 @@ const App = () => {
           required: 'Age Required',
           validate: (val) => {
             if (!(val > 17)) {
-              return 'Not Allowed'
+              return 'Kids Not Allowed'
             }
+            if (val > 100) {
+              return 'are you fucking crazy '
+            }
+
           }
         })} type="number" placeholder="age" />
         {errors.age && <div className="px-2 absolute left-2 top-[-8px] bg-white text-[12px] text-red-700 font-semibold">{errors.age.message}</div>}
