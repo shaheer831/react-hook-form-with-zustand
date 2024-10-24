@@ -75,7 +75,6 @@ const App = () => {
           placeholder="Password"
           aria-invalid={!!errors.password}
         />
-
         {errors.password && <div className="px-2 absolute left-2 top-[-8px] bg-white text-[12px] text-red-700 font-semibold">{errors.password.message}</div>}
       </div>
       <div className="relative w-full">
